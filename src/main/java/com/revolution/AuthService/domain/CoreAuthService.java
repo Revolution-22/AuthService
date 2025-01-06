@@ -7,11 +7,9 @@ import com.revolution.AuthService.api.exception.AuthorizationException;
 import com.revolution.AuthService.api.exception.UserAlreadyExistsException;
 import com.revolution.AuthService.api.response.UserResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-@Service
 @RequiredArgsConstructor
-class AuthServiceImpl implements AuthService {
+class CoreAuthService implements AuthService {
 
     private final UserRepository userRepository;
     private final Encoder encoder;

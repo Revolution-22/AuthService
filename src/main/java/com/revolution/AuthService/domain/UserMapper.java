@@ -4,8 +4,7 @@ import com.revolution.AuthService.api.response.UserResponse;
 import com.revolution.AuthService.api.vo.UserVO;
 import org.springframework.stereotype.Component;
 
-@Component
-public class UserMapper {
+class UserMapper {
 
     User toModel(UserVO userVO) {
         return User.builder()
