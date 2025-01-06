@@ -2,9 +2,11 @@ package com.revolution.AuthService.infrastructure.configuration;
 
 import com.revolution.AuthService.api.AuthService;
 import com.revolution.AuthService.api.port.Encoder;
+import com.revolution.AuthService.api.port.TokenService;
 import com.revolution.AuthService.api.port.UserRepository;
 import com.revolution.AuthService.domain.AuthBeanConfiguration;
 import com.revolution.AuthService.infrastructure.adapter.CoreEncoder;
+import com.revolution.AuthService.infrastructure.adapter.CoreTokenService;
 import com.revolution.AuthService.infrastructure.database.EntityMapper;
 import com.revolution.AuthService.infrastructure.database.UserJpaRepository;
 import com.revolution.AuthService.infrastructure.database.UserRepositoryImpl;
@@ -19,6 +21,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class BeanConfiguration {
 
     private final AuthBeanConfiguration authConfiguration = new AuthBeanConfiguration();
+
+    @Bean
+    public TokenService tokenService() {
+        return new CoreTokenService();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -41,8 +48,8 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public AuthService authService(UserRepository userRepository, Encoder passwordEncoder) {
-        return authConfiguration.getAuthService(userRepository, passwordEncoder);
+    public AuthService authService(UserRepository userRepository, Encoder passwordEncoder, TokenService tokenService) {
+        return authConfiguration.getAuthService(userRepository, passwordEncoder, tokenService);
     }
 
 }

@@ -4,5 +4,6 @@ import java.util.Set;
 
 public record UserResponse(
         String nickname,
-        Set<String> roles) {
+        Set<String> roles,
+        String token) {
 }

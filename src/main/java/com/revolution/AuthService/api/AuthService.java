@@ -6,4 +6,5 @@ public interface AuthService {
 
     UserResponse login(String email, String password);
     UserResponse register(String nickname, String email, String password);
+    UserResponse validateToken(String token);
 }

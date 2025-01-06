@@ -16,8 +16,8 @@ class UserMapper {
                 .build();
     }
 
-    UserResponse toResponse(User user) {
-        return new UserResponse(user.getNickname(), user.getRoles());
+    UserResponse toResponse(User user, String token) {
+        return new UserResponse(user.getNickname(), user.getRoles(), token);
     }
 
     UserVO toVO(User user) {
