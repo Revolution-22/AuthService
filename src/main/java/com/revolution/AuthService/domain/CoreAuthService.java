@@ -44,7 +44,7 @@ class CoreAuthService implements AuthService {
     @Override
     public UserResponse validateToken(String token) {
         Optional<String> emailOptional = tokenService.getEmailByToken(token);
-        if (!emailOptional.isEmpty()) {
+        if (emailOptional.isEmpty()) {
             throw new AuthorizationException("UNKNOWN USER");
         }
         User user = userRepository.findByEmail(emailOptional.get())

@@ -10,6 +10,8 @@ import java.util.UUID;
 
 public class CoreTokenService implements TokenService {
 
+    //TODO: Refresh system (Experience time of token)
+
     private final Map<String, String> tokenStorage = new HashMap<>();
 
     @Override
