@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public interface TokenService {
 
-    String generateToken(String username);
+    String generateToken(String email);
 
     Optional<String> getEmailByToken(String token);
 }
