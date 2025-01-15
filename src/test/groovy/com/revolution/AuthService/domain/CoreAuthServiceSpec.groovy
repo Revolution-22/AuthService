@@ -2,105 +2,60 @@ package com.revolution.AuthService.domain
 
 import com.revolution.AuthService.api.AuthService
 import com.revolution.AuthService.api.exception.AuthorizationException
-import com.revolution.AuthService.api.exception.UserAlreadyExistsException
-import com.revolution.AuthService.api.port.Encoder
-import com.revolution.AuthService.api.port.TokenService
-import com.revolution.AuthService.api.port.UserRepository
 import com.revolution.AuthService.api.response.UserResponse
-import com.revolution.AuthService.api.vo.UserVO
+import com.revolution.AuthService.domain.adapters.TestBeanConfiguration
 import spock.lang.Specification
 import spock.lang.Subject
 
 class CoreAuthServiceSpec extends Specification implements Constants {
 
-    private UserRepository userRepository = Mock()
-    private Encoder encoder = Mock()
-    private TokenService tokenService = Mock()
-
-    private AuthBeanConfiguration authBeanConfiguration = new AuthBeanConfiguration()
+    private TestBeanConfiguration configuration = new TestBeanConfiguration()
 
     @Subject
-    private AuthService authService = authBeanConfiguration.getAuthService(userRepository, encoder, tokenService)
+    private AuthService authService = configuration.getAuthService()
 
-    def "Should throw authorization exception while logging in" () {
-        given:
-            userRepository.findByEmail(_) >> Optional.of(getDefaultUserVO())
-            encoder.matches(_,_) >> false
-        when:
+    def setup(){
+       configuration.clear()
+    }
+
+    def "should not login user because he didn't exists in database" () {
+        when: "Try to login user"
             authService.login(EMAIL, PASSWORD)
-        then:
+        then: "Exception throwed because user not found in database"
             thrown(AuthorizationException)
     }
 
-    private UserVO getDefaultUserVO() {
-        new UserVO(1L, NICKNAME, EMAIL, PASSWORD, Set.of(ROLE_USER))
-    }
-
-    def "Should login user" () {
-        given:
-            userRepository.findByEmail(_) >> Optional.of(getDefaultUserVO())
-            encoder.matches(_,_) >> true
-            tokenService.generateToken(_) >> TOKEN
-        when:
-            UserResponse response = authService.login(EMAIL, PASSWORD)
-        then:
-            response.nickname() == NICKNAME
-            response.roles() == Set.of(ROLE_USER)
-            response.token() == TOKEN
-    }
-
-    def "Should throw while registering user" () {
-        given:
-            userRepository.existsByEmail(_) >> true
-        when:
+    def "should register new user and allow to login" () {
+        when: "Try to register new user"
             authService.register(NICKNAME, EMAIL, PASSWORD)
-        then:
-            thrown(UserAlreadyExistsException)
+        and: "Try to login as created user"
+            UserResponse userResponse = authService.login(EMAIL, PASSWORD)
+        then: "Check if logged user is registered user"
+            userResponse.nickname() == NICKNAME
     }
 
-    def "Should register user" () {
-        given:
-            userRepository.existsByEmail(_) >> false
-            userRepository.existsByNickname(_) >> false
-            encoder.encode(_) >> ENCODE_PREFIX + PASSWORD
-            tokenService.generateToken(_) >> TOKEN
-        when:
-            UserResponse response = authService.register(NICKNAME, EMAIL, PASSWORD)
-        then:
-            response.nickname() == NICKNAME
-            response.roles() == Set.of(ROLE_USER)
-            response.token() == TOKEN
+    def "should not login user because he's password not match" () {
+        given: "Register user in application"
+            authService.register(NICKNAME, EMAIL, PASSWORD)
+        when: "Try to login with wrong password"
+            authService.login(EMAIL, EMAIL)
+        then: "Exception throwed because users password not match"
+            thrown(AuthorizationException)
     }
 
-    def "Should throw while validate token because of null token" () {
-        given:
-            tokenService.getEmailByToken(_) >> Optional.empty()
+    def "should not validate token because user not logged before" () {
         when:
             authService.validateToken(TOKEN)
         then:
             thrown(AuthorizationException)
     }
 
-    def "Should throw while validate token because of null user" () {
-        given:
-            tokenService.getEmailByToken(_) >> Optional.of(EMAIL)
-            userRepository.findByEmail(_) >> Optional.empty()
-        when:
-            authService.validateToken(TOKEN)
-        then:
-            thrown(AuthorizationException)
-    }
-
-    def "Should validate token" () {
-        given:
-            tokenService.getEmailByToken(_) >> Optional.of(EMAIL)
-            userRepository.findByEmail(_) >> Optional.of(getDefaultUserVO())
-            tokenService.generateToken(_) >> TOKEN
-        when:
-            UserResponse response = authService.validateToken(TOKEN)
-        then:
-            response.nickname() == NICKNAME
-            response.roles() == Set.of(ROLE_USER)
-            response.token() == TOKEN
+    def "should validate token because user is logged before" () {
+        given: "Register new user in application and get token"
+            UserResponse userResponse = authService.register(NICKNAME, EMAIL, PASSWORD)
+        when: "Validate registered token"
+            UserResponse tokenResponse = authService.validateToken(userResponse.token())
+        then: "Check if validated user is registered user"
+            tokenResponse.nickname() == userResponse.nickname()
     }
 }

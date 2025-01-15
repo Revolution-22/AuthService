@@ -50,6 +50,6 @@ class CoreAuthService implements AuthService {
         User user = userRepository.findByEmail(emailOptional.get())
                 .map(userMapper::toModel)
                 .orElseThrow(() -> new AuthorizationException(emailOptional.get()));
-        return userMapper.toResponse(user, tokenService.generateToken(user.getEmail()));
+        return userMapper.toResponse(user, token);
     }
 }
