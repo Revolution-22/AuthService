@@ -19,13 +19,13 @@ class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    UserResponse login(String email, String password) {
+    UserResponse login(@RequestParam String email, @RequestParam String password) {
         return authService.login(email, password);
     }
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    UserResponse register(String nickname, String email, String password) {
+    UserResponse register(@RequestParam String nickname, @RequestParam String email, @RequestParam String password) {
         return authService.register(nickname, email, password);
     }
 

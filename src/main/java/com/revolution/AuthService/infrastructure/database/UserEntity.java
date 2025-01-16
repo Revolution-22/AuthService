@@ -1,6 +1,7 @@
 package com.revolution.AuthService.infrastructure.database;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,6 +16,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "users")
 @Builder
 @Getter
+@Entity
 class UserEntity {
 
     @Id
