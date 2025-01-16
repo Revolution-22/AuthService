@@ -44,9 +44,9 @@ class CoreAuthServiceSpec extends Specification implements Constants {
     }
 
     def "should not validate token because user not logged before" () {
-        when:
+        when: "Validate not logged token"
             authService.validateToken(TOKEN)
-        then:
+        then: "Check if throwed authorization error"
             thrown(AuthorizationException)
     }
 
