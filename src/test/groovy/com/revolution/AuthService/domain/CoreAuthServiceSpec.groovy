@@ -58,11 +58,4 @@ class CoreAuthServiceSpec extends Specification implements Constants {
         then: "Check if validated user is registered user"
             tokenResponse.nickname() == userResponse.nickname()
     }
-
-    def "asdasdas" () {
-        when:
-            def x = 0
-        then:
-            x == 1
-    }
 }
