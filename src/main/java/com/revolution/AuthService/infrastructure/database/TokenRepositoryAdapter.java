@@ -13,18 +13,18 @@ public class TokenRepositoryAdapter implements TokenRepository {
     private final EntityMapper entityMapper;
 
     @Override
-    public Optional<TokenVO> findByEmail(String email) {
+    public Optional<TokenVO> findByEmail(final String email) {
         return tokenJpaRepository.findByEmail(email)
                 .map(entityMapper::toVO);
     }
 
     @Override
-    public TokenVO save(TokenVO tokenVO) {
+    public TokenVO save(final TokenVO tokenVO) {
         return entityMapper.toVO(tokenJpaRepository.save(entityMapper.toEntity(tokenVO)));
     }
 
     @Override
-    public Optional<TokenVO> findByToken(String token) {
+    public Optional<TokenVO> findByToken(final String token) {
         return tokenJpaRepository.findByToken(token)
                 .map(entityMapper::toVO);
     }

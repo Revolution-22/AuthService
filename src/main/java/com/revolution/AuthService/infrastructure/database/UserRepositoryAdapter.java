@@ -13,23 +13,23 @@ public class UserRepositoryAdapter implements UserRepository {
     private final EntityMapper entityMapper;
 
     @Override
-    public Optional<UserVO> findByEmail(String email) {
+    public Optional<UserVO> findByEmail(final String email) {
         return userJpaRepository.findByEmail(email)
                 .map(entityMapper::toVO);
     }
 
     @Override
-    public boolean existsByEmail(String email) {
+    public boolean existsByEmail(final String email) {
         return userJpaRepository.existsByEmail(email);
     }
 
     @Override
-    public boolean existsByNickname(String nickname) {
+    public boolean existsByNickname(final String nickname) {
         return userJpaRepository.existsByNickname(nickname);
     }
 
     @Override
-    public UserVO save(UserVO user) {
+    public UserVO save(final UserVO user) {
         return entityMapper.toVO(userJpaRepository.save(entityMapper.toEntity(user)));
     }
 }

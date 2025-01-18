@@ -10,12 +10,12 @@ public class CoreEncoder implements Encoder {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public boolean matches(String rawPassword, String password) {
+    public boolean matches(final String rawPassword, final String password) {
         return passwordEncoder.matches(rawPassword, password);
     }
 
     @Override
-    public String encode(String rawPassword) {
+    public String encode(final String rawPassword) {
         return passwordEncoder.encode(rawPassword);
     }
 }

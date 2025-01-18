@@ -20,23 +20,23 @@ class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    UserResponse login(@RequestParam String email, @RequestParam String password) {
+    UserResponse login(@RequestParam final String email, @RequestParam final String password) {
         return authService.login(email, password);
     }
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    UserResponse register(@RequestParam String nickname, @RequestParam String email, @RequestParam String password) {
+    UserResponse register(@RequestParam final String nickname, @RequestParam final String email, @RequestParam final String password) {
         return authService.register(nickname, email, password);
     }
 
     @PutMapping("/validate")
-    UserResponse validate(@RequestParam String token) {
+    UserResponse validate(@RequestParam final String token) {
         return authService.validateToken(token);
     }
 
     @PutMapping("/refresh")
-    UserResponse refresh(@RequestParam String token) {
+    UserResponse refresh(@RequestParam final String token) {
         return authService.refreshToken(token);
     }
 }

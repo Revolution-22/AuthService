@@ -22,7 +22,7 @@ class CoreAuthService implements AuthService {
     private final TokenService tokenService;
 
     @Override
-    public UserResponse login(String email, String password) {
+    public UserResponse login(final String email, final String password) {
         User user = userRepository.findByEmail(email)
                 .map(userMapper::toModel)
                 .orElseThrow(() -> new AuthorizationException(email));
@@ -33,7 +33,7 @@ class CoreAuthService implements AuthService {
     }
 
     @Override
-    public UserResponse register(String nickname, String email, String password) {
+    public UserResponse register(final String nickname, final String email, final String password) {
         if (userRepository.existsByEmail(email) || userRepository.existsByNickname(nickname)) {
             throw new UserAlreadyExistsException(email, nickname);
         }
@@ -44,7 +44,7 @@ class CoreAuthService implements AuthService {
     }
 
     @Override
-    public UserResponse validateToken(String token) {
+    public UserResponse validateToken(final String token) {
         Optional<String> emailOptional = tokenService.getEmailByToken(token);
         if (emailOptional.isEmpty()) {
             throw new AuthorizationException("UNKNOWN USER");
@@ -59,7 +59,7 @@ class CoreAuthService implements AuthService {
     }
 
     @Override
-    public UserResponse refreshToken(String token) {
+    public UserResponse refreshToken(final String token) {
         TokenRefreshResponse tokenRefreshResponse = tokenService.refreshToken(token)
                 .orElseThrow(() -> new AuthorizationException(token));
         String email = tokenRefreshResponse.email();

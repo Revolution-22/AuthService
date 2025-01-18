@@ -18,7 +18,7 @@ class CoreTokenService implements TokenService {
     private final TokenMapper tokenMapper;
 
     @Override
-    public String generateToken(String email) {
+    public String generateToken(final String email) {
         Optional<Token> optionalToken = tokenRepository.findByEmail(email)
                 .map(tokenMapper::toModel);
         if(optionalToken.isEmpty()) {
@@ -34,14 +34,14 @@ class CoreTokenService implements TokenService {
     }
 
     @Override
-    public Optional<String> getEmailByToken(String token) {
+    public Optional<String> getEmailByToken(final String token) {
         return tokenRepository.findByToken(token)
                 .map(tokenMapper::toModel)
                 .map(target -> target.isExpired() ? null : target.getEmail());
     }
 
     @Override
-    public String generateRefreshToken(String email) {
+    public String generateRefreshToken(final String email) {
         Optional<RefreshToken> optionalToken = refreshTokenRepository.findByEmail(email)
                 .map(tokenMapper::toModel);
         if(optionalToken.isEmpty()) {
@@ -59,12 +59,12 @@ class CoreTokenService implements TokenService {
     }
 
     @Override
-    public Optional<RefreshTokenVO> getRefreshTokenByEmail(String email) {
+    public Optional<RefreshTokenVO> getRefreshTokenByEmail(final String email) {
         return refreshTokenRepository.findByEmail(email);
     }
 
     @Override
-    public Optional<TokenRefreshResponse> refreshToken(String refreshToken) {
+    public Optional<TokenRefreshResponse> refreshToken(final String refreshToken) {
         Optional<RefreshToken> optionalToken = refreshTokenRepository.findByToken(refreshToken)
                 .map(tokenMapper::toModel);
         if(optionalToken.isEmpty()) {

@@ -13,18 +13,18 @@ public class RefreshTokenRepositoryAdapter implements RefreshTokenRepository {
     private final EntityMapper entityMapper;
 
     @Override
-    public Optional<RefreshTokenVO> findByEmail(String email) {
+    public Optional<RefreshTokenVO> findByEmail(final String email) {
         return tokenJpaRepository.findByEmail(email)
                 .map(entityMapper::toVO);
     }
 
     @Override
-    public RefreshTokenVO save(RefreshTokenVO tokenVO) {
+    public RefreshTokenVO save(final RefreshTokenVO tokenVO) {
         return entityMapper.toVO(tokenJpaRepository.save(entityMapper.toEntity(tokenVO)));
     }
 
     @Override
-    public Optional<RefreshTokenVO> findByToken(String token) {
+    public Optional<RefreshTokenVO> findByToken(final String token) {
         return tokenJpaRepository.findByToken(token)
                 .map(entityMapper::toVO);
     }
