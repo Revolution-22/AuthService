@@ -21,7 +21,7 @@ class CoreAuthServiceSpec extends Specification implements Constants {
     def "should not login user because he didn't exists in database" () {
         when: "Try to login user"
             authService.login(EMAIL, PASSWORD)
-        then: "Exception throwed because user not found in database"
+        then: "Exception threw because user not found in database"
             thrown(AuthorizationException)
     }
 
@@ -46,7 +46,7 @@ class CoreAuthServiceSpec extends Specification implements Constants {
     def "should not validate token because user not logged before" () {
         when: "Validate not logged token"
             authService.validateToken(TOKEN)
-        then: "Check if throwed authorization error"
+        then: "Check if threw authorization error"
             thrown(AuthorizationException)
     }
 
@@ -58,4 +58,31 @@ class CoreAuthServiceSpec extends Specification implements Constants {
         then: "Check if validated user is registered user"
             tokenResponse.nickname() == userResponse.nickname()
     }
+
+    def "should not refresh token because user not logged" () {
+        when: "Try to refresh token"
+            authService.refreshToken(TOKEN)
+        then: "Check if threw authorization exception"
+            thrown(AuthorizationException)
+    }
+
+    def "should refresh token" () {
+        given: "Register user in application"
+            UserResponse registerResponse = authService.register(NICKNAME, EMAIL, PASSWORD)
+        when: "Try to refresh token"
+            UserResponse refreshResponse = authService.refreshToken(registerResponse.refreshToken())
+        then: "Check if access token and refresh token was changed"
+            registerResponse.refreshToken() != refreshResponse.refreshToken()
+            registerResponse.token() != refreshResponse.token()
+    }
+
+    def "should not refresh token because token not found in database" () {
+        given: "Register user in application"
+            authService.register(NICKNAME, EMAIL, PASSWORD)
+        when: "Try to refresh token"
+            authService.refreshToken(TOKEN)
+        then: "Check if threw authorization exception"
+            thrown(AuthorizationException)
+    }
+
 }

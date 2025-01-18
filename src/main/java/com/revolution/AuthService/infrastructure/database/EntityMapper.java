@@ -1,5 +1,6 @@
 package com.revolution.AuthService.infrastructure.database;
 
+import com.revolution.AuthService.api.vo.RefreshTokenVO;
 import com.revolution.AuthService.api.vo.TokenVO;
 import com.revolution.AuthService.api.vo.UserVO;
 
@@ -27,6 +28,18 @@ public class EntityMapper {
 
     TokenEntity toEntity(final TokenVO tokenVO) {
         return TokenEntity.builder()
+                .email(tokenVO.email())
+                .token(tokenVO.token())
+                .expires(tokenVO.expires())
+                .build();
+    }
+
+    RefreshTokenVO toVO(final RefreshTokenEntity tokenEntity) {
+        return new RefreshTokenVO(tokenEntity.getEmail(), tokenEntity.getToken(), tokenEntity.getExpires());
+    }
+
+    RefreshTokenEntity toEntity(final RefreshTokenVO tokenVO) {
+        return RefreshTokenEntity.builder()
                 .email(tokenVO.email())
                 .token(tokenVO.token())
                 .expires(tokenVO.expires())

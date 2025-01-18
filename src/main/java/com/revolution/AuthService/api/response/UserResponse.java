@@ -5,5 +5,6 @@ import java.util.Set;
 public record UserResponse(
         String nickname,
         Set<String> roles,
-        String token) {
+        String token,
+        String refreshToken) {
 }

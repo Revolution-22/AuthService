@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -29,8 +30,13 @@ class AuthController {
         return authService.register(nickname, email, password);
     }
 
-    @GetMapping("/validate")
+    @PutMapping("/validate")
     UserResponse validate(@RequestParam String token) {
         return authService.validateToken(token);
+    }
+
+    @PutMapping("/refresh")
+    UserResponse refresh(@RequestParam String token) {
+        return authService.refreshToken(token);
     }
 }

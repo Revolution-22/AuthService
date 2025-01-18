@@ -2,13 +2,16 @@ package com.revolution.AuthService.infrastructure.configuration;
 
 import com.revolution.AuthService.api.AuthService;
 import com.revolution.AuthService.api.port.Encoder;
+import com.revolution.AuthService.api.port.RefreshTokenRepository;
 import com.revolution.AuthService.api.port.TokenRepository;
 import com.revolution.AuthService.api.port.TokenService;
 import com.revolution.AuthService.api.port.UserRepository;
 import com.revolution.AuthService.domain.AuthBeanConfiguration;
 import com.revolution.AuthService.infrastructure.adapter.CoreEncoder;
 import com.revolution.AuthService.infrastructure.database.EntityMapper;
-import com.revolution.AuthService.infrastructure.database.TokeRepositoryAdapter;
+import com.revolution.AuthService.infrastructure.database.RefreshTokenJpaRepository;
+import com.revolution.AuthService.infrastructure.database.RefreshTokenRepositoryAdapter;
+import com.revolution.AuthService.infrastructure.database.TokenRepositoryAdapter;
 import com.revolution.AuthService.infrastructure.database.TokenJpaRepository;
 import com.revolution.AuthService.infrastructure.database.UserJpaRepository;
 import com.revolution.AuthService.infrastructure.database.UserRepositoryAdapter;
@@ -26,12 +29,17 @@ class BeanConfiguration {
 
     @Bean
     TokenRepository tokenRepository(TokenJpaRepository tokenJpaRepository, EntityMapper entityMapper) {
-        return new TokeRepositoryAdapter(tokenJpaRepository, entityMapper);
+        return new TokenRepositoryAdapter(tokenJpaRepository, entityMapper);
     }
 
     @Bean
-    TokenService tokenService(TokenRepository tokenRepository) {
-        return authConfiguration.getTokenService(tokenRepository);
+    RefreshTokenRepository refreshTokenRepository(RefreshTokenJpaRepository tokenJpaRepository, EntityMapper entityMapper) {
+        return new RefreshTokenRepositoryAdapter(tokenJpaRepository, entityMapper);
+    }
+
+    @Bean
+    TokenService tokenService(TokenRepository tokenRepository, RefreshTokenRepository refreshTokenRepository) {
+        return authConfiguration.getTokenService(tokenRepository, refreshTokenRepository);
     }
 
     @Bean

@@ -11,14 +11,14 @@ import java.util.UUID;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 @Getter
-class Token {
+class RefreshToken {
 
     private String email;
     private String token;
     private LocalDateTime expires;
 
     void refresh() {
-        expires = LocalDateTime.now().plusHours(1);
+        expires = LocalDateTime.now().plusDays(1);
         token = UUID.randomUUID().toString();
     }
 
@@ -26,7 +26,7 @@ class Token {
         return expires.isBefore(LocalDateTime.now());
     }
 
-    static Token of(String email) {
-        return new Token(email, UUID.randomUUID().toString(), LocalDateTime.now().plusHours(1));
+    static RefreshToken of(String email) {
+        return new RefreshToken(email, UUID.randomUUID().toString(), LocalDateTime.now().plusDays(1));
     }
 }

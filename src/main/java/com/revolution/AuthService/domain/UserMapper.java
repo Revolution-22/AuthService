@@ -2,11 +2,10 @@ package com.revolution.AuthService.domain;
 
 import com.revolution.AuthService.api.response.UserResponse;
 import com.revolution.AuthService.api.vo.UserVO;
-import org.springframework.stereotype.Component;
 
 class UserMapper {
 
-    User toModel(UserVO userVO) {
+    User toModel(final UserVO userVO) {
         return User.builder()
                 .id(userVO.id())
                 .nickname(userVO.nickname())
@@ -16,11 +15,11 @@ class UserMapper {
                 .build();
     }
 
-    UserResponse toResponse(User user, String token) {
-        return new UserResponse(user.getNickname(), user.getRoles(), token);
+    UserResponse toResponse(final User user, final String token, final String refreshToken) {
+        return new UserResponse(user.getNickname(), user.getRoles(), token, refreshToken);
     }
 
-    UserVO toVO(User user) {
+    UserVO toVO(final User user) {
         return new UserVO(user.getId(), user.getNickname(), user.getEmail(), user.getPassword(), user.getRoles());
     }
 }

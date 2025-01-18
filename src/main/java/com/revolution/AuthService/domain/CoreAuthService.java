@@ -1,12 +1,14 @@
 package com.revolution.AuthService.domain;
 
 import com.revolution.AuthService.api.AuthService;
+import com.revolution.AuthService.api.exception.AuthorizationException;
+import com.revolution.AuthService.api.exception.UserAlreadyExistsException;
 import com.revolution.AuthService.api.port.Encoder;
 import com.revolution.AuthService.api.port.TokenService;
 import com.revolution.AuthService.api.port.UserRepository;
-import com.revolution.AuthService.api.exception.AuthorizationException;
-import com.revolution.AuthService.api.exception.UserAlreadyExistsException;
+import com.revolution.AuthService.api.response.TokenRefreshResponse;
 import com.revolution.AuthService.api.response.UserResponse;
+import com.revolution.AuthService.api.vo.RefreshTokenVO;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
@@ -27,7 +29,7 @@ class CoreAuthService implements AuthService {
         if(!encoder.matches(password, user.getPassword())) {
             throw new AuthorizationException(email);
         }
-        return userMapper.toResponse(user, tokenService.generateToken(user.getEmail()));
+        return userMapper.toResponse(user, tokenService.generateToken(user.getEmail()), tokenService.generateRefreshToken(user.getEmail()));
     }
 
     @Override
@@ -38,7 +40,7 @@ class CoreAuthService implements AuthService {
         String encodedPassword = encoder.encode(password);
         User user = User.withDefaultRole(nickname, email, encodedPassword);
         userRepository.save(userMapper.toVO(user));
-        return userMapper.toResponse(user, tokenService.generateToken(user.getEmail()));
+        return userMapper.toResponse(user, tokenService.generateToken(user.getEmail()), tokenService.generateRefreshToken(user.getEmail()));
     }
 
     @Override
@@ -47,9 +49,23 @@ class CoreAuthService implements AuthService {
         if (emailOptional.isEmpty()) {
             throw new AuthorizationException("UNKNOWN USER");
         }
-        User user = userRepository.findByEmail(emailOptional.get())
+        String email = emailOptional.get();
+        User user = userRepository.findByEmail(email)
                 .map(userMapper::toModel)
-                .orElseThrow(() -> new AuthorizationException(emailOptional.get()));
-        return userMapper.toResponse(user, token);
+                .orElseThrow(() -> new AuthorizationException(email));
+        RefreshTokenVO refreshTokenVO = tokenService.getRefreshTokenByEmail(email)
+                .orElseThrow(() -> new AuthorizationException(email));
+        return userMapper.toResponse(user, token, refreshTokenVO.token());
+    }
+
+    @Override
+    public UserResponse refreshToken(String token) {
+        TokenRefreshResponse tokenRefreshResponse = tokenService.refreshToken(token)
+                .orElseThrow(() -> new AuthorizationException(token));
+        String email = tokenRefreshResponse.email();
+        User user = userRepository.findByEmail(email)
+                .map(userMapper::toModel)
+                .orElseThrow(() -> new AuthorizationException(email));
+        return userMapper.toResponse(user, tokenRefreshResponse.token(), tokenRefreshResponse.refreshToken());
     }
 }
