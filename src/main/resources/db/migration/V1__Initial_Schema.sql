@@ -1,0 +1,21 @@
+CREATE TABLE tokens (
+    id BIGSERIAL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    token VARCHAR(255) NOT NULL UNIQUE,
+    expires TIMESTAMP NOT NULL
+);
+
+CREATE TABLE refresh_tokens (
+    id BIGSERIAL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    token VARCHAR(255) NOT NULL UNIQUE,
+    expires TIMESTAMP NOT NULL
+);
+
+CREATE TABLE users (
+   id BIGSERIAL PRIMARY KEY,
+   nickname VARCHAR(255) UNIQUE,
+   email VARCHAR(255) UNIQUE,
+   password VARCHAR(255) NOT NULL,
+   roles TEXT
+);
