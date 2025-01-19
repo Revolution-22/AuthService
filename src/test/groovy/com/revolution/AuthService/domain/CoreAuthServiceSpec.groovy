@@ -31,7 +31,7 @@ class CoreAuthServiceSpec extends Specification implements Constants {
         and: "Try to login as created user"
             UserResponse userResponse = authService.login(EMAIL, PASSWORD)
         then: "Check if logged user is registered user"
-            userResponse.nickname() == NICKNAME
+            userResponse.email() == EMAIL
     }
 
     def "should not login user because he's password not match" () {
@@ -56,7 +56,7 @@ class CoreAuthServiceSpec extends Specification implements Constants {
         when: "Validate registered token"
             UserResponse tokenResponse = authService.validateToken(userResponse.token())
         then: "Check if validated user is registered user"
-            tokenResponse.nickname() == userResponse.nickname()
+            tokenResponse.email() == userResponse.email()
     }
 
     def "should not refresh token because user not logged" () {
