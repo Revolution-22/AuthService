@@ -1,12 +1,14 @@
 package com.revolution.AuthService.infrastructure.contoller;
 
 import com.revolution.AuthService.api.AuthService;
+import com.revolution.AuthService.api.request.UserLoginRequest;
+import com.revolution.AuthService.api.request.UserRegisterRequest;
 import com.revolution.AuthService.api.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -20,14 +22,14 @@ class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    UserResponse login(@RequestParam final String email, @RequestParam final String password) {
-        return authService.login(email, password);
+    UserResponse login(@RequestBody UserLoginRequest request) {
+        return authService.login(request.email(), request.password());
     }
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    UserResponse register(@RequestParam final String nickname, @RequestParam final String email, @RequestParam final String password) {
-        return authService.register(nickname, email, password);
+    UserResponse register(@RequestBody UserRegisterRequest request) {
+        return authService.register(request.nickname(), request.email(), request.password());
     }
 
     @PutMapping("/validate")
