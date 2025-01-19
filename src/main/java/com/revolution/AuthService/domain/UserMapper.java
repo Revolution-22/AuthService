@@ -16,7 +16,7 @@ class UserMapper {
     }
 
     UserResponse toResponse(final User user, final String token, final String refreshToken) {
-        return new UserResponse(user.getNickname(), user.getRoles(), token, refreshToken);
+        return new UserResponse(user.getEmail(), user.getRoles(), token, refreshToken);
     }
 
     UserVO toVO(final User user) {
