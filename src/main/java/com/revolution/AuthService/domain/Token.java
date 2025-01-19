@@ -18,7 +18,7 @@ class Token {
     private LocalDateTime expires;
 
     void refresh() {
-        expires = LocalDateTime.now().plusHours(1);
+        expires = LocalDateTime.now().plusMinutes(15);
         token = UUID.randomUUID().toString();
     }
 

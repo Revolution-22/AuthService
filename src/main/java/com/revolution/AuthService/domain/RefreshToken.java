@@ -18,7 +18,7 @@ class RefreshToken {
     private LocalDateTime expires;
 
     void refresh() {
-        expires = LocalDateTime.now().plusDays(1);
+        expires = LocalDateTime.now().plusHours(1);
         token = UUID.randomUUID().toString();
     }
 
