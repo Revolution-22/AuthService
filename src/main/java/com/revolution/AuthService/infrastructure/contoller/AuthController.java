@@ -1,6 +1,6 @@
 package com.revolution.AuthService.infrastructure.contoller;
 
-import com.revolution.AuthService.api.AuthService;
+import com.revolution.AuthService.api.port.AuthService;
 import com.revolution.AuthService.api.request.UserLoginRequest;
 import com.revolution.AuthService.api.request.UserRegisterRequest;
 import com.revolution.AuthService.api.response.UserResponse;

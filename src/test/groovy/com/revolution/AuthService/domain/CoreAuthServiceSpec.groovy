@@ -1,6 +1,6 @@
 package com.revolution.AuthService.domain
 
-import com.revolution.AuthService.api.AuthService
+import com.revolution.AuthService.api.port.AuthService
 import com.revolution.AuthService.api.exception.AuthorizationException
 import com.revolution.AuthService.api.response.UserResponse
 import com.revolution.AuthService.domain.adapters.TestBeanConfiguration

@@ -1,6 +1,6 @@
 package com.revolution.AuthService.infrastructure.configuration;
 
-import com.revolution.AuthService.api.AuthService;
+import com.revolution.AuthService.api.port.AuthService;
 import com.revolution.AuthService.api.port.Encoder;
 import com.revolution.AuthService.api.port.RefreshTokenRepository;
 import com.revolution.AuthService.api.port.TokenRepository;

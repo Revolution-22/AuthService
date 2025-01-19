@@ -1,4 +1,4 @@
-package com.revolution.AuthService.api;
+package com.revolution.AuthService.api.port;
 
 import com.revolution.AuthService.api.response.UserResponse;
 
