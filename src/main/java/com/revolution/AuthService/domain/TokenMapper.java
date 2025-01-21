@@ -1,23 +1,23 @@
 package com.revolution.AuthService.domain;
 
-import com.revolution.AuthService.api.vo.RefreshTokenVO;
-import com.revolution.AuthService.api.vo.TokenVO;
+import com.revolution.AuthService.api.dto.RefreshTokenDto;
+import com.revolution.AuthService.api.dto.TokenDto;
 
 class TokenMapper {
 
-    Token toModel(final TokenVO tokenVO) {
+    Token toModel(final TokenDto tokenDto) {
         return Token.builder()
-                .email(tokenVO.email())
-                .token(tokenVO.token())
-                .expires(tokenVO.expires())
+                .email(tokenDto.email())
+                .token(tokenDto.token())
+                .expires(tokenDto.expires())
                 .build();
     }
 
-    TokenVO toVO(final Token token) {
-        return new TokenVO(token.getEmail(), token.getToken(), token.getExpires());
+    TokenDto toVO(final Token token) {
+        return new TokenDto(token.getEmail(), token.getToken(), token.getExpires());
     }
 
-    RefreshToken toModel(final RefreshTokenVO tokenVO) {
+    RefreshToken toModel(final RefreshTokenDto tokenVO) {
         return RefreshToken.builder()
                 .email(tokenVO.email())
                 .token(tokenVO.token())
@@ -25,7 +25,7 @@ class TokenMapper {
                 .build();
     }
 
-    RefreshTokenVO toVO(final RefreshToken token) {
-        return new RefreshTokenVO(token.getEmail(), token.getToken(), token.getExpires());
+    RefreshTokenDto toVO(final RefreshToken token) {
+        return new RefreshTokenDto(token.getEmail(), token.getToken(), token.getExpires());
     }
 }

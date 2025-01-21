@@ -1,25 +1,25 @@
 package com.revolution.AuthService.domain.adapters
 
 import com.revolution.AuthService.api.port.TokenRepository
-import com.revolution.AuthService.api.vo.TokenVO
+import com.revolution.AuthService.api.dto.TokenDto
 
 class TestTokenRepository implements TokenRepository {
 
-    protected Map<String, TokenVO> database = new HashMap<>()
+    protected Map<String, TokenDto> database = new HashMap<>()
 
     @Override
-    Optional<TokenVO> findByEmail(String email) {
+    Optional<TokenDto> findByEmail(String email) {
         Optional.ofNullable(database.get(email))
     }
 
     @Override
-    TokenVO save(TokenVO tokenVO) {
+    TokenDto save(TokenDto tokenVO) {
         database.put(tokenVO.email(), tokenVO)
         tokenVO
     }
 
     @Override
-    Optional<TokenVO> findByToken(String token) {
+    Optional<TokenDto> findByToken(String token) {
         database.values().stream()
             .filter { Objects.equals(it.token(), token)}
             .findFirst()

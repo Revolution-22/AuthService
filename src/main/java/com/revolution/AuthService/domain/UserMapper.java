@@ -1,17 +1,17 @@
 package com.revolution.AuthService.domain;
 
 import com.revolution.AuthService.api.response.UserResponse;
-import com.revolution.AuthService.api.vo.UserVO;
+import com.revolution.AuthService.api.dto.UserDto;
 
 class UserMapper {
 
-    User toModel(final UserVO userVO) {
+    User toModel(final UserDto userDto) {
         return User.builder()
-                .id(userVO.id())
-                .nickname(userVO.nickname())
-                .email(userVO.email())
-                .password(userVO.password())
-                .roles(userVO.roles())
+                .id(userDto.id())
+                .nickname(userDto.nickname())
+                .email(userDto.email())
+                .password(userDto.password())
+                .roles(userDto.roles())
                 .build();
     }
 
@@ -19,7 +19,7 @@ class UserMapper {
         return new UserResponse(user.getEmail(), user.getRoles(), token, refreshToken);
     }
 
-    UserVO toVO(final User user) {
-        return new UserVO(user.getId(), user.getNickname(), user.getEmail(), user.getPassword(), user.getRoles());
+    UserDto toVO(final User user) {
+        return new UserDto(user.getId(), user.getNickname(), user.getEmail(), user.getPassword(), user.getRoles());
     }
 }

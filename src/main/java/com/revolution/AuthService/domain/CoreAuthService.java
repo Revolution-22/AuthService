@@ -6,9 +6,9 @@ import com.revolution.AuthService.api.exception.UserAlreadyExistsException;
 import com.revolution.AuthService.api.port.Encoder;
 import com.revolution.AuthService.api.port.TokenService;
 import com.revolution.AuthService.api.port.UserRepository;
-import com.revolution.AuthService.api.response.TokenRefreshResponse;
+import com.revolution.AuthService.api.dto.TokensRefreshDto;
 import com.revolution.AuthService.api.response.UserResponse;
-import com.revolution.AuthService.api.vo.RefreshTokenVO;
+import com.revolution.AuthService.api.dto.RefreshTokenDto;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
@@ -53,19 +53,19 @@ class CoreAuthService implements AuthService {
         User user = userRepository.findByEmail(email)
                 .map(userMapper::toModel)
                 .orElseThrow(() -> new AuthorizationException(email));
-        RefreshTokenVO refreshTokenVO = tokenService.getRefreshTokenByEmail(email)
+        RefreshTokenDto refreshTokenDto = tokenService.getRefreshTokenByEmail(email)
                 .orElseThrow(() -> new AuthorizationException(email));
-        return userMapper.toResponse(user, token, refreshTokenVO.token());
+        return userMapper.toResponse(user, token, refreshTokenDto.token());
     }
 
     @Override
     public UserResponse refreshToken(final String token) {
-        TokenRefreshResponse tokenRefreshResponse = tokenService.refreshToken(token)
+        TokensRefreshDto tokensRefreshDto = tokenService.refreshToken(token)
                 .orElseThrow(() -> new AuthorizationException(token));
-        String email = tokenRefreshResponse.email();
+        String email = tokensRefreshDto.email();
         User user = userRepository.findByEmail(email)
                 .map(userMapper::toModel)
                 .orElseThrow(() -> new AuthorizationException(email));
-        return userMapper.toResponse(user, tokenRefreshResponse.token(), tokenRefreshResponse.refreshToken());
+        return userMapper.toResponse(user, tokensRefreshDto.token(), tokensRefreshDto.refreshToken());
     }
 }

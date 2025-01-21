@@ -1,7 +1,7 @@
 package com.revolution.AuthService.infrastructure.database;
 
 import com.revolution.AuthService.api.port.UserRepository;
-import com.revolution.AuthService.api.vo.UserVO;
+import com.revolution.AuthService.api.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
@@ -13,7 +13,7 @@ public class UserRepositoryAdapter implements UserRepository {
     private final EntityMapper entityMapper;
 
     @Override
-    public Optional<UserVO> findByEmail(final String email) {
+    public Optional<UserDto> findByEmail(final String email) {
         return userJpaRepository.findByEmail(email)
                 .map(entityMapper::toVO);
     }
@@ -29,7 +29,7 @@ public class UserRepositoryAdapter implements UserRepository {
     }
 
     @Override
-    public UserVO save(final UserVO user) {
+    public UserDto save(final UserDto user) {
         return entityMapper.toVO(userJpaRepository.save(entityMapper.toEntity(user)));
     }
 }

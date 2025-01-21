@@ -1,7 +1,7 @@
 package com.revolution.AuthService.infrastructure.database;
 
 import com.revolution.AuthService.api.port.RefreshTokenRepository;
-import com.revolution.AuthService.api.vo.RefreshTokenVO;
+import com.revolution.AuthService.api.dto.RefreshTokenDto;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
@@ -13,18 +13,18 @@ public class RefreshTokenRepositoryAdapter implements RefreshTokenRepository {
     private final EntityMapper entityMapper;
 
     @Override
-    public Optional<RefreshTokenVO> findByEmail(final String email) {
+    public Optional<RefreshTokenDto> findByEmail(final String email) {
         return tokenJpaRepository.findByEmail(email)
                 .map(entityMapper::toVO);
     }
 
     @Override
-    public RefreshTokenVO save(final RefreshTokenVO tokenVO) {
+    public RefreshTokenDto save(final RefreshTokenDto tokenVO) {
         return entityMapper.toVO(tokenJpaRepository.save(entityMapper.toEntity(tokenVO)));
     }
 
     @Override
-    public Optional<RefreshTokenVO> findByToken(final String token) {
+    public Optional<RefreshTokenDto> findByToken(final String token) {
         return tokenJpaRepository.findByToken(token)
                 .map(entityMapper::toVO);
     }

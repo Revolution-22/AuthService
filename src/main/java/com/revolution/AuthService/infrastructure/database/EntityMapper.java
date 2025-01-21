@@ -1,44 +1,44 @@
 package com.revolution.AuthService.infrastructure.database;
 
-import com.revolution.AuthService.api.vo.RefreshTokenVO;
-import com.revolution.AuthService.api.vo.TokenVO;
-import com.revolution.AuthService.api.vo.UserVO;
+import com.revolution.AuthService.api.dto.RefreshTokenDto;
+import com.revolution.AuthService.api.dto.TokenDto;
+import com.revolution.AuthService.api.dto.UserDto;
 
 import java.util.Set;
 
 public class EntityMapper {
 
-    UserVO toVO(final UserEntity userEntity) {
-        return new UserVO(userEntity.getId(), userEntity.getNickname(), userEntity.getEmail(), userEntity.getPassword(), Set.of(userEntity.getRoles().split(",")));
+    UserDto toVO(final UserEntity userEntity) {
+        return new UserDto(userEntity.getId(), userEntity.getNickname(), userEntity.getEmail(), userEntity.getPassword(), Set.of(userEntity.getRoles().split(",")));
     }
 
-    UserEntity toEntity(final UserVO userVO) {
+    UserEntity toEntity(final UserDto userDto) {
         return UserEntity.builder()
-                .id(userVO.id())
-                .nickname(userVO.nickname())
-                .email(userVO.email())
-                .password(userVO.password())
-                .roles(String.join(",", userVO.roles()))
+                .id(userDto.id())
+                .nickname(userDto.nickname())
+                .email(userDto.email())
+                .password(userDto.password())
+                .roles(String.join(",", userDto.roles()))
                 .build();
     }
 
-    TokenVO toVO(final TokenEntity tokenEntity) {
-        return new TokenVO(tokenEntity.getEmail(), tokenEntity.getToken(), tokenEntity.getExpires());
+    TokenDto toVO(final TokenEntity tokenEntity) {
+        return new TokenDto(tokenEntity.getEmail(), tokenEntity.getToken(), tokenEntity.getExpires());
     }
 
-    TokenEntity toEntity(final TokenVO tokenVO) {
+    TokenEntity toEntity(final TokenDto tokenDto) {
         return TokenEntity.builder()
-                .email(tokenVO.email())
-                .token(tokenVO.token())
-                .expires(tokenVO.expires())
+                .email(tokenDto.email())
+                .token(tokenDto.token())
+                .expires(tokenDto.expires())
                 .build();
     }
 
-    RefreshTokenVO toVO(final RefreshTokenEntity tokenEntity) {
-        return new RefreshTokenVO(tokenEntity.getEmail(), tokenEntity.getToken(), tokenEntity.getExpires());
+    RefreshTokenDto toVO(final RefreshTokenEntity tokenEntity) {
+        return new RefreshTokenDto(tokenEntity.getEmail(), tokenEntity.getToken(), tokenEntity.getExpires());
     }
 
-    RefreshTokenEntity toEntity(final RefreshTokenVO tokenVO) {
+    RefreshTokenEntity toEntity(final RefreshTokenDto tokenVO) {
         return RefreshTokenEntity.builder()
                 .email(tokenVO.email())
                 .token(tokenVO.token())

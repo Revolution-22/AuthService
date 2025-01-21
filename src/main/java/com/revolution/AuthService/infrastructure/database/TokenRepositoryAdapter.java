@@ -1,7 +1,7 @@
 package com.revolution.AuthService.infrastructure.database;
 
 import com.revolution.AuthService.api.port.TokenRepository;
-import com.revolution.AuthService.api.vo.TokenVO;
+import com.revolution.AuthService.api.dto.TokenDto;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
@@ -13,18 +13,18 @@ public class TokenRepositoryAdapter implements TokenRepository {
     private final EntityMapper entityMapper;
 
     @Override
-    public Optional<TokenVO> findByEmail(final String email) {
+    public Optional<TokenDto> findByEmail(final String email) {
         return tokenJpaRepository.findByEmail(email)
                 .map(entityMapper::toVO);
     }
 
     @Override
-    public TokenVO save(final TokenVO tokenVO) {
-        return entityMapper.toVO(tokenJpaRepository.save(entityMapper.toEntity(tokenVO)));
+    public TokenDto save(final TokenDto tokenDto) {
+        return entityMapper.toVO(tokenJpaRepository.save(entityMapper.toEntity(tokenDto)));
     }
 
     @Override
-    public Optional<TokenVO> findByToken(final String token) {
+    public Optional<TokenDto> findByToken(final String token) {
         return tokenJpaRepository.findByToken(token)
                 .map(entityMapper::toVO);
     }

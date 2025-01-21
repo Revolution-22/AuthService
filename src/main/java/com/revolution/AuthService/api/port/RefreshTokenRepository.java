@@ -1,13 +1,13 @@
 package com.revolution.AuthService.api.port;
 
-import com.revolution.AuthService.api.vo.RefreshTokenVO;
+import com.revolution.AuthService.api.dto.RefreshTokenDto;
 
 import java.util.Optional;
 
 public interface RefreshTokenRepository {
-    Optional<RefreshTokenVO> findByEmail(String email);
+    Optional<RefreshTokenDto> findByEmail(String email);
 
-    RefreshTokenVO save(RefreshTokenVO tokenVO);
+    RefreshTokenDto save(RefreshTokenDto tokenVO);
 
-    Optional<RefreshTokenVO> findByToken(String token);
+    Optional<RefreshTokenDto> findByToken(String token);
 }

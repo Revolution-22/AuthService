@@ -1,13 +1,13 @@
 package com.revolution.AuthService.api.port;
 
-import com.revolution.AuthService.api.vo.UserVO;
+import com.revolution.AuthService.api.dto.UserDto;
 
 import java.util.Optional;
 
 public interface UserRepository {
 
-    Optional<UserVO> findByEmail(String email);
+    Optional<UserDto> findByEmail(String email);
     boolean existsByEmail(String email);
     boolean existsByNickname(String nickname);
-    UserVO save(UserVO user);
+    UserDto save(UserDto user);
 }

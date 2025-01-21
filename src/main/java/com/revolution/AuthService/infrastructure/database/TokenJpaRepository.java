@@ -1,7 +1,5 @@
 package com.revolution.AuthService.infrastructure.database;
 
-import com.revolution.AuthService.api.vo.TokenVO;
-import io.micrometer.observation.ObservationFilter;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

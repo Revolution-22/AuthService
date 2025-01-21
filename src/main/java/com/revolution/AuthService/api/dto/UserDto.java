@@ -1,8 +1,8 @@
-package com.revolution.AuthService.api.vo;
+package com.revolution.AuthService.api.dto;
 
 import java.util.Set;
 
-public record UserVO(
+public record UserDto(
         Long id,
         String nickname,
         String email,

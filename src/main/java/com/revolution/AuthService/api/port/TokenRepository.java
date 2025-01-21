@@ -1,13 +1,13 @@
 package com.revolution.AuthService.api.port;
 
-import com.revolution.AuthService.api.vo.TokenVO;
+import com.revolution.AuthService.api.dto.TokenDto;
 
 import java.util.Optional;
 
 public interface TokenRepository {
-    Optional<TokenVO> findByEmail(String email);
+    Optional<TokenDto> findByEmail(String email);
 
-    TokenVO save(TokenVO tokenVO);
+    TokenDto save(TokenDto tokenDto);
 
-    Optional<TokenVO> findByToken(String token);
+    Optional<TokenDto> findByToken(String token);
 }
