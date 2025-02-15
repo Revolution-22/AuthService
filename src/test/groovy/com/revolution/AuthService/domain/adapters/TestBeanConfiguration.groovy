@@ -16,11 +16,11 @@ class TestBeanConfiguration {
     private final UserRepository userRepository = new TestUserRepository()
 
     TokenService getTokenService() {
-        return authBeanConfiguration.getTokenService(tokenRepository, refreshTokenRepository)
+        authBeanConfiguration.getTokenService(tokenRepository, refreshTokenRepository)
     }
 
     AuthService getAuthService() {
-        return authBeanConfiguration.getAuthService(userRepository, new TestEncoder(), getTokenService())
+        authBeanConfiguration.getAuthService(userRepository, new TestEncoder(), getTokenService())
     }
 
     def clear() {
