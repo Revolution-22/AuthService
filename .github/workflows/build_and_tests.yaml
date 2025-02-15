@@ -1,4 +1,4 @@
-name: Maven Build
+name: Run build and tests in project
 
 on:
   pull_request:
