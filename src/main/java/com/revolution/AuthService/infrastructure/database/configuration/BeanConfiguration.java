@@ -1,4 +1,4 @@
-package com.revolution.AuthService.infrastructure.configuration;
+package com.revolution.AuthService.infrastructure.database.configuration;
 
 import com.revolution.AuthService.api.port.AuthService;
 import com.revolution.AuthService.api.port.Encoder;

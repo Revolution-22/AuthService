@@ -23,12 +23,12 @@ class CoreTokenService implements TokenService {
                 .map(tokenMapper::toModel);
         if(optionalToken.isEmpty()) {
             Token token = Token.of(email);
-            TokenDto savedTokenDto = tokenRepository.save(tokenMapper.toVO(token));
+            TokenDto savedTokenDto = tokenRepository.save(tokenMapper.toDto(token));
             return savedTokenDto.token();
         } else {
             Token token = optionalToken.get();
             token.refresh();
-            tokenRepository.save(tokenMapper.toVO(token));
+            tokenRepository.save(tokenMapper.toDto(token));
             return token.getToken();
         }
     }
@@ -46,13 +46,13 @@ class CoreTokenService implements TokenService {
                 .map(tokenMapper::toModel);
         if(optionalToken.isEmpty()) {
             RefreshToken token = RefreshToken.of(email);
-            RefreshTokenDto savedTokenVO = refreshTokenRepository.save(tokenMapper.toVO(token));
+            RefreshTokenDto savedTokenVO = refreshTokenRepository.save(tokenMapper.toDto(token));
             return savedTokenVO.token();
         } else {
             RefreshToken token = optionalToken.get();
             if (token.isExpired()) {
                 token.refresh();
-                refreshTokenRepository.save(tokenMapper.toVO(token));
+                refreshTokenRepository.save(tokenMapper.toDto(token));
             }
             return token.getToken();
         }
@@ -72,7 +72,7 @@ class CoreTokenService implements TokenService {
         } else {
             RefreshToken token = optionalToken.get();
             token.refresh();
-            refreshTokenRepository.save(tokenMapper.toVO(token));
+            refreshTokenRepository.save(tokenMapper.toDto(token));
             return Optional.of(new TokensRefreshDto(token.getEmail(), generateToken(token.getEmail()), token.getToken()));
         }
     }

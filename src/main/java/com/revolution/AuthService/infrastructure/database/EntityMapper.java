@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class EntityMapper {
 
-    UserDto toVO(final UserEntity userEntity) {
+    UserDto toDto(final UserEntity userEntity) {
         return new UserDto(userEntity.getId(), userEntity.getNickname(), userEntity.getEmail(), userEntity.getPassword(), Set.of(userEntity.getRoles().split(",")));
     }
 
@@ -22,7 +22,7 @@ public class EntityMapper {
                 .build();
     }
 
-    TokenDto toVO(final TokenEntity tokenEntity) {
+    TokenDto toDto(final TokenEntity tokenEntity) {
         return new TokenDto(tokenEntity.getEmail(), tokenEntity.getToken(), tokenEntity.getExpires());
     }
 
@@ -34,7 +34,7 @@ public class EntityMapper {
                 .build();
     }
 
-    RefreshTokenDto toVO(final RefreshTokenEntity tokenEntity) {
+    RefreshTokenDto toDto(final RefreshTokenEntity tokenEntity) {
         return new RefreshTokenDto(tokenEntity.getEmail(), tokenEntity.getToken(), tokenEntity.getExpires());
     }
 

@@ -15,7 +15,7 @@ public class UserRepositoryAdapter implements UserRepository {
     @Override
     public Optional<UserDto> findByEmail(final String email) {
         return userJpaRepository.findByEmail(email)
-                .map(entityMapper::toVO);
+                .map(entityMapper::toDto);
     }
 
     @Override
@@ -30,6 +30,6 @@ public class UserRepositoryAdapter implements UserRepository {
 
     @Override
     public UserDto save(final UserDto user) {
-        return entityMapper.toVO(userJpaRepository.save(entityMapper.toEntity(user)));
+        return entityMapper.toDto(userJpaRepository.save(entityMapper.toEntity(user)));
     }
 }

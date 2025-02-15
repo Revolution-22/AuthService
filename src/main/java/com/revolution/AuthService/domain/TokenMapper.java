@@ -13,7 +13,7 @@ class TokenMapper {
                 .build();
     }
 
-    TokenDto toVO(final Token token) {
+    TokenDto toDto(final Token token) {
         return new TokenDto(token.getEmail(), token.getToken(), token.getExpires());
     }
 
@@ -25,7 +25,7 @@ class TokenMapper {
                 .build();
     }
 
-    RefreshTokenDto toVO(final RefreshToken token) {
+    RefreshTokenDto toDto(final RefreshToken token) {
         return new RefreshTokenDto(token.getEmail(), token.getToken(), token.getExpires());
     }
 }

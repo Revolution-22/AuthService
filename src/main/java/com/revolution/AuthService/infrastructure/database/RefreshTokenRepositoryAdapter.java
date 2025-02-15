@@ -15,17 +15,17 @@ public class RefreshTokenRepositoryAdapter implements RefreshTokenRepository {
     @Override
     public Optional<RefreshTokenDto> findByEmail(final String email) {
         return tokenJpaRepository.findByEmail(email)
-                .map(entityMapper::toVO);
+                .map(entityMapper::toDto);
     }
 
     @Override
     public RefreshTokenDto save(final RefreshTokenDto tokenVO) {
-        return entityMapper.toVO(tokenJpaRepository.save(entityMapper.toEntity(tokenVO)));
+        return entityMapper.toDto(tokenJpaRepository.save(entityMapper.toEntity(tokenVO)));
     }
 
     @Override
     public Optional<RefreshTokenDto> findByToken(final String token) {
         return tokenJpaRepository.findByToken(token)
-                .map(entityMapper::toVO);
+                .map(entityMapper::toDto);
     }
 }
