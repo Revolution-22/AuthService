@@ -19,7 +19,7 @@ class UserMapper {
         return new UserResponse(user.getEmail(), user.getRoles(), token, refreshToken);
     }
 
-    UserDto toVO(final User user) {
+    UserDto toDto(final User user) {
         return new UserDto(user.getId(), user.getNickname(), user.getEmail(), user.getPassword(), user.getRoles());
     }
 }

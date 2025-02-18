@@ -39,7 +39,7 @@ class CoreAuthService implements AuthService {
         }
         String encodedPassword = encoder.encode(password);
         User user = User.withDefaultRole(nickname, email, encodedPassword);
-        userRepository.save(userMapper.toVO(user));
+        userRepository.save(userMapper.toDto(user));
         return userMapper.toResponse(user, tokenService.generateToken(user.getEmail()), tokenService.generateRefreshToken(user.getEmail()));
     }
 
