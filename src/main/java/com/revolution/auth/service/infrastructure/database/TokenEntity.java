@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @Entity
-class TokenEntity {
+public class TokenEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
