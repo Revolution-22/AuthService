@@ -22,7 +22,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.revolution.AuthService.infrastructure.*")
+@EnableJpaRepositories(basePackages = "com.revolution.auth.service.infrastructure.*")
 class BeanConfiguration {
 
     private final AuthBeanConfiguration authConfiguration = new AuthBeanConfiguration();
