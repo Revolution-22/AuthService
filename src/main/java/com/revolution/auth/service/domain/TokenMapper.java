@@ -7,6 +7,7 @@ class TokenMapper {
 
     Token toModel(final TokenDto tokenDto) {
         return Token.builder()
+                .id(tokenDto.id())
                 .email(tokenDto.email())
                 .token(tokenDto.token())
                 .expires(tokenDto.expires())
@@ -14,18 +15,19 @@ class TokenMapper {
     }
 
     TokenDto toDto(final Token token) {
-        return new TokenDto(token.getEmail(), token.getToken(), token.getExpires());
+        return new TokenDto(token.getId(), token.getEmail(), token.getToken(), token.getExpires());
     }
 
-    RefreshToken toModel(final RefreshTokenDto tokenVO) {
+    RefreshToken toModel(final RefreshTokenDto tokenDto) {
         return RefreshToken.builder()
-                .email(tokenVO.email())
-                .token(tokenVO.token())
-                .expires(tokenVO.expires())
+                .id(tokenDto.id())
+                .email(tokenDto.email())
+                .token(tokenDto.token())
+                .expires(tokenDto.expires())
                 .build();
     }
 
     RefreshTokenDto toDto(final RefreshToken token) {
-        return new RefreshTokenDto(token.getEmail(), token.getToken(), token.getExpires());
+        return new RefreshTokenDto(token.getId(), token.getEmail(), token.getToken(), token.getExpires());
     }
 }

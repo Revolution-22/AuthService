@@ -23,11 +23,12 @@ public class EntityMapper {
     }
 
     TokenDto toDto(final TokenEntity tokenEntity) {
-        return new TokenDto(tokenEntity.getEmail(), tokenEntity.getToken(), tokenEntity.getExpires());
+        return new TokenDto(tokenEntity.getId(), tokenEntity.getEmail(), tokenEntity.getToken(), tokenEntity.getExpires());
     }
 
     TokenEntity toEntity(final TokenDto tokenDto) {
         return TokenEntity.builder()
+                .id(tokenDto.id())
                 .email(tokenDto.email())
                 .token(tokenDto.token())
                 .expires(tokenDto.expires())
@@ -35,14 +36,15 @@ public class EntityMapper {
     }
 
     RefreshTokenDto toDto(final RefreshTokenEntity tokenEntity) {
-        return new RefreshTokenDto(tokenEntity.getEmail(), tokenEntity.getToken(), tokenEntity.getExpires());
+        return new RefreshTokenDto(tokenEntity.getId(), tokenEntity.getEmail(), tokenEntity.getToken(), tokenEntity.getExpires());
     }
 
-    RefreshTokenEntity toEntity(final RefreshTokenDto tokenVO) {
+    RefreshTokenEntity toEntity(final RefreshTokenDto tokenDto) {
         return RefreshTokenEntity.builder()
-                .email(tokenVO.email())
-                .token(tokenVO.token())
-                .expires(tokenVO.expires())
+                .id(tokenDto.id())
+                .email(tokenDto.email())
+                .token(tokenDto.token())
+                .expires(tokenDto.expires())
                 .build();
     }
 }

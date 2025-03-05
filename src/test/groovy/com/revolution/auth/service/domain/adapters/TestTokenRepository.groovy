@@ -13,9 +13,9 @@ class TestTokenRepository implements TokenRepository {
     }
 
     @Override
-    TokenDto save(TokenDto tokenVO) {
-        database.put(tokenVO.email(), tokenVO)
-        tokenVO
+    TokenDto save(TokenDto tokenDto) {
+        database.put(tokenDto.email(), tokenDto)
+        tokenDto
     }
 
     @Override

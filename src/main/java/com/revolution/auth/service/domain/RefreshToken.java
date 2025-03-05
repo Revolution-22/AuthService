@@ -13,6 +13,7 @@ import java.util.UUID;
 @Getter
 class RefreshToken {
 
+    private Long id;
     private String email;
     private String token;
     private LocalDateTime expires;
@@ -27,6 +28,6 @@ class RefreshToken {
     }
 
     static RefreshToken of(String email) {
-        return new RefreshToken(email, UUID.randomUUID().toString(), LocalDateTime.now().plusDays(1));
+        return new RefreshToken(null, email, UUID.randomUUID().toString(), LocalDateTime.now().plusDays(1));
     }
 }
