@@ -3,11 +3,13 @@ package com.revolution.auth.service.infrastructure.database;
 import com.revolution.auth.service.api.port.UserRepository;
 import com.revolution.auth.service.api.dto.UserDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 @RequiredArgsConstructor
-public class UserRepositoryAdapter implements UserRepository {
+class UserRepositoryAdapter implements UserRepository {
 
     private final UserJpaRepository userJpaRepository;
     private final EntityMapper entityMapper;

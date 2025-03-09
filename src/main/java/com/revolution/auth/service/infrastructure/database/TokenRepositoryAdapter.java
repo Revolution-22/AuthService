@@ -3,11 +3,13 @@ package com.revolution.auth.service.infrastructure.database;
 import com.revolution.auth.service.api.port.TokenRepository;
 import com.revolution.auth.service.api.dto.TokenDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 @RequiredArgsConstructor
-public class TokenRepositoryAdapter implements TokenRepository {
+class TokenRepositoryAdapter implements TokenRepository {
 
     private final TokenJpaRepository tokenJpaRepository;
     private final EntityMapper entityMapper;

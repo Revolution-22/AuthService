@@ -3,9 +3,11 @@ package com.revolution.auth.service.infrastructure.database;
 import com.revolution.auth.service.api.dto.RefreshTokenDto;
 import com.revolution.auth.service.api.dto.TokenDto;
 import com.revolution.auth.service.api.dto.UserDto;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
+@Component
 public class EntityMapper {
 
     UserDto toDto(final UserEntity userEntity) {
