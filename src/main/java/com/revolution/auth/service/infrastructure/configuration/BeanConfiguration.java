@@ -1,6 +1,7 @@
 package com.revolution.auth.service.infrastructure.configuration;
 
 import com.revolution.auth.service.api.port.AuthService;
+import com.revolution.auth.service.api.port.BrokerService;
 import com.revolution.auth.service.api.port.Encoder;
 import com.revolution.auth.service.api.port.RefreshTokenRepository;
 import com.revolution.auth.service.api.port.TokenRepository;
@@ -38,8 +39,8 @@ class BeanConfiguration {
     }
 
     @Bean
-    AuthService authService(UserRepository userRepository, Encoder passwordEncoder, TokenService tokenService) {
-        return authConfiguration.getAuthService(userRepository, passwordEncoder, tokenService);
+    AuthService authService(UserRepository userRepository, Encoder passwordEncoder, TokenService tokenService, BrokerService brokerService) {
+        return authConfiguration.getAuthService(userRepository, passwordEncoder, tokenService, brokerService);
     }
 
 }

@@ -3,6 +3,7 @@ package com.revolution.auth.service.domain;
 import com.revolution.auth.service.api.port.AuthService;
 import com.revolution.auth.service.api.exception.AuthorizationException;
 import com.revolution.auth.service.api.exception.UserAlreadyExistsException;
+import com.revolution.auth.service.api.port.BrokerService;
 import com.revolution.auth.service.api.port.Encoder;
 import com.revolution.auth.service.api.port.TokenService;
 import com.revolution.auth.service.api.port.UserRepository;
@@ -13,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
 
+import static com.revolution.auth.service.api.Topics.REGISTER_TOPIC;
+
 @RequiredArgsConstructor
 class CoreAuthService implements AuthService {
 
@@ -20,6 +23,7 @@ class CoreAuthService implements AuthService {
     private final Encoder encoder;
     private final UserMapper userMapper;
     private final TokenService tokenService;
+    private final BrokerService brokerService;
 
     @Override
     public UserResponse login(final String email, final String password) {
@@ -39,8 +43,9 @@ class CoreAuthService implements AuthService {
         }
         String encodedPassword = encoder.encode(password);
         User user = User.withDefaultRole(nickname, email, encodedPassword);
-        userRepository.save(userMapper.toDto(user));
-        return userMapper.toResponse(user, tokenService.generateToken(user.getEmail()), tokenService.generateRefreshToken(user.getEmail()));
+        User savedUser = userMapper.toModel(userRepository.save(userMapper.toDto(user)));
+        brokerService.publishMessage(REGISTER_TOPIC, savedUser.getId());
+        return userMapper.toResponse(savedUser, tokenService.generateToken(user.getEmail()), tokenService.generateRefreshToken(user.getEmail()));
     }
 
     @Override
