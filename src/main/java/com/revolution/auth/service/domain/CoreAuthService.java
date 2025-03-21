@@ -12,6 +12,8 @@ import com.revolution.auth.service.api.response.UserResponse;
 import com.revolution.auth.service.api.dto.RefreshTokenDto;
 import lombok.RequiredArgsConstructor;
 
+import com.revolution.common.event.RegisterEvent;
+
 import java.util.Optional;
 
 import static com.revolution.auth.service.api.Topics.REGISTER_TOPIC;
@@ -44,7 +46,7 @@ class CoreAuthService implements AuthService {
         String encodedPassword = encoder.encode(password);
         User user = User.withDefaultRole(nickname, email, encodedPassword);
         User savedUser = userMapper.toModel(userRepository.save(userMapper.toDto(user)));
-        brokerService.publishMessage(REGISTER_TOPIC, savedUser.getId());
+        brokerService.publishMessage(REGISTER_TOPIC, new RegisterEvent(savedUser.getId()));
         return userMapper.toResponse(savedUser, tokenService.generateToken(user.getEmail()), tokenService.generateRefreshToken(user.getEmail()));
     }
 
