@@ -1,4 +1,4 @@
-package com.revolution.auth.service.infrastructure.validators;
+package com.revolution.auth.service.api.request.validators;
 
 import com.revolution.auth.service.api.request.Password;
 import jakarta.validation.ConstraintValidator;

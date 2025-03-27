@@ -1,6 +1,6 @@
 package com.revolution.auth.service.api.request;
 
-import com.revolution.auth.service.infrastructure.validators.PasswordValidator;
+import com.revolution.auth.service.api.request.validators.PasswordValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import java.lang.annotation.*;
