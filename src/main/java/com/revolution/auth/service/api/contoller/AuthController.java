@@ -4,6 +4,7 @@ import com.revolution.auth.service.api.port.AuthService;
 import com.revolution.auth.service.api.request.UserLoginRequest;
 import com.revolution.auth.service.api.request.UserRegisterRequest;
 import com.revolution.auth.service.api.response.UserResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,13 +23,13 @@ class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    UserResponse login(@RequestBody UserLoginRequest request) {
+    UserResponse login(@RequestBody @Valid UserLoginRequest request) {
         return authService.login(request.email(), request.password());
     }
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    UserResponse register(@RequestBody UserRegisterRequest request) {
+    UserResponse register(@RequestBody @Valid UserRegisterRequest request) {
         return authService.register(request.nickname(), request.email(), request.password());
     }
 
