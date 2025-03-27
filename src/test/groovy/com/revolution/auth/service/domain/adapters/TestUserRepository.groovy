@@ -28,7 +28,9 @@ class TestUserRepository implements UserRepository {
 
     @Override
     UserDto save(UserDto user) {
-        database.put(database.size(), user)
-        user
+        long id = database.size();
+        UserDto userWitId = new UserDto(id, user.nickname(), user.email(), user.password(), user.roles())
+        database.put(id, userWitId)
+        userWitId
     }
 }

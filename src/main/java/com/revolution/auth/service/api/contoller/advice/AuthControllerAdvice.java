@@ -2,7 +2,7 @@ package com.revolution.auth.service.api.contoller.advice;
 
 import com.revolution.auth.service.api.exception.AuthorizationException;
 import com.revolution.auth.service.api.exception.UserAlreadyExistsException;
-import com.revolution.Common.exception.ErrorEntity;
+import com.revolution.common.exception.ErrorEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;

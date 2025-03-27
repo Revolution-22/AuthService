@@ -1,6 +1,7 @@
 package com.revolution.auth.service.domain;
 
 import com.revolution.auth.service.api.port.AuthService;
+import com.revolution.auth.service.api.port.BrokerService;
 import com.revolution.auth.service.api.port.Encoder;
 import com.revolution.auth.service.api.port.RefreshTokenRepository;
 import com.revolution.auth.service.api.port.TokenRepository;
@@ -13,7 +14,7 @@ public class AuthBeanConfiguration {
         return new CoreTokenService(tokenRepository, refreshTokenRepository, new TokenMapper());
     }
 
-    public AuthService getAuthService(UserRepository userRepository, Encoder encoder, TokenService tokenService) {
-        return new CoreAuthService(userRepository, encoder, new UserMapper(), tokenService);
+    public AuthService getAuthService(UserRepository userRepository, Encoder encoder, TokenService tokenService, BrokerService brokerService) {
+        return new CoreAuthService(userRepository, encoder, new UserMapper(), tokenService, brokerService);
     }
 }

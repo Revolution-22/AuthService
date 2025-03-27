@@ -7,6 +7,12 @@ eureka:
       defaultZone: "http://localhost:8761/eureka/"
 
 spring:
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    bootstrap-servers: "PLAINTEXT://localhost:9092"
+
   flyway:
     enabled: true
     locations: classpath:db/migration

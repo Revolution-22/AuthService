@@ -1,6 +1,7 @@
 package com.revolution.auth.service.domain.adapters
 
 import com.revolution.auth.service.api.port.AuthService
+import com.revolution.auth.service.api.port.BrokerService
 import com.revolution.auth.service.api.port.RefreshTokenRepository
 import com.revolution.auth.service.api.port.TokenRepository
 import com.revolution.auth.service.api.port.TokenService
@@ -20,7 +21,7 @@ class TestBeanConfiguration {
     }
 
     AuthService getAuthService() {
-        authBeanConfiguration.getAuthService(userRepository, new TestEncoder(), getTokenService())
+        authBeanConfiguration.getAuthService(userRepository, new TestEncoder(), getTokenService(), new TestBrokerService())
     }
 
     def clear() {
