@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.KafkaAdmin;
 
-import static com.revolution.auth.service.api.Topics.REGISTER_TOPIC;
+import static com.revolution.common.event.Topics.REGISTER_TOPIC;
 
 @Configuration
 class KafkaTopicConfig {

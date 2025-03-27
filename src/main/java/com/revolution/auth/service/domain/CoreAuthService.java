@@ -16,7 +16,7 @@ import com.revolution.common.event.RegisterEvent;
 
 import java.util.Optional;
 
-import static com.revolution.auth.service.api.Topics.REGISTER_TOPIC;
+import static com.revolution.common.event.Topics.REGISTER_TOPIC;
 
 @RequiredArgsConstructor
 class CoreAuthService implements AuthService {
