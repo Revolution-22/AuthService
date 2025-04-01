@@ -1,6 +1,5 @@
 package com.revolution.auth.service.infrastructure.configuration;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,10 +15,5 @@ class KafkaProducerConfig {
     public KafkaTemplate<String, Object> kafkaTemplate(KafkaProperties kafkaProperties) {
         Map<String, Object> kafkaPropertiesMap = kafkaProperties.buildProducerProperties(null);
         return new KafkaTemplate<>(new DefaultKafkaProducerFactory<>(kafkaPropertiesMap));
-    }
-
-    @Bean
-    ObjectMapper objectMapper() {
-        return new ObjectMapper();
     }
 }
