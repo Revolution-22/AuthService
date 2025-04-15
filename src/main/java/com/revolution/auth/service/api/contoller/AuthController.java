@@ -3,7 +3,7 @@ package com.revolution.auth.service.api.contoller;
 import com.revolution.auth.service.api.port.AuthService;
 import com.revolution.auth.service.api.request.UserLoginRequest;
 import com.revolution.auth.service.api.request.UserRegisterRequest;
-import com.revolution.auth.service.api.response.UserResponse;
+import com.revolution.common.response.UserResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

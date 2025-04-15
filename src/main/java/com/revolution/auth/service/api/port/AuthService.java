@@ -1,6 +1,6 @@
 package com.revolution.auth.service.api.port;
 
-import com.revolution.auth.service.api.response.UserResponse;
+import com.revolution.common.response.UserResponse;
 
 public interface AuthService {
 

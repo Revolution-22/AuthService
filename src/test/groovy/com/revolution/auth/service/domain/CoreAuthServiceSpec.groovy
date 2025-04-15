@@ -2,7 +2,7 @@ package com.revolution.auth.service.domain
 
 import com.revolution.auth.service.api.port.AuthService
 import com.revolution.auth.service.api.exception.AuthorizationException
-import com.revolution.auth.service.api.response.UserResponse
+import UserResponse
 import com.revolution.auth.service.domain.adapters.TestBeanConfiguration
 import spock.lang.Specification
 import spock.lang.Subject

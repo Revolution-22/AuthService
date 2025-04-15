@@ -1,6 +1,6 @@
 package com.revolution.auth.service.domain;
 
-import com.revolution.auth.service.api.response.UserResponse;
+import com.revolution.common.response.UserResponse;
 import com.revolution.auth.service.api.dto.UserDto;
 
 class UserMapper {

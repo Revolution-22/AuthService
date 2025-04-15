@@ -8,7 +8,7 @@ import com.revolution.auth.service.api.port.Encoder;
 import com.revolution.auth.service.api.port.TokenService;
 import com.revolution.auth.service.api.port.UserRepository;
 import com.revolution.auth.service.api.dto.TokensRefreshDto;
-import com.revolution.auth.service.api.response.UserResponse;
+import com.revolution.common.response.UserResponse;
 import com.revolution.auth.service.api.dto.RefreshTokenDto;
 import lombok.RequiredArgsConstructor;
 
