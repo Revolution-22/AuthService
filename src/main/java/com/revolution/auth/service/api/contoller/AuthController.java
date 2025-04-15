@@ -34,12 +34,14 @@ class AuthController {
     }
 
     @PutMapping("/validate")
-    UserResponse validate(@RequestParam final String token) {
+    UserResponse validate(@RequestParam String token) {
+        token = token.replace("Bearer ", "");
         return authService.validateToken(token);
     }
 
     @PutMapping("/refresh")
-    UserResponse refresh(@RequestParam final String token) {
+    UserResponse refresh(@RequestParam String token) {
+        token = token.replace("Bearer ", "");
         return authService.refreshToken(token);
     }
 }
