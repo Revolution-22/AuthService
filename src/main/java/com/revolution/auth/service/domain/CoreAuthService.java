@@ -46,7 +46,7 @@ class CoreAuthService implements AuthService {
         String encodedPassword = encoder.encode(password);
         User user = User.withDefaultRole(nickname, email, encodedPassword);
         User savedUser = userMapper.toModel(userRepository.save(userMapper.toDto(user)));
-        brokerService.publishMessage(REGISTER_TOPIC, new RegisterEvent(savedUser.getId()));
+        brokerService.publishMessage(REGISTER_TOPIC, new RegisterEvent(savedUser.getId(), savedUser.getNickname(), savedUser.getEmail()));
         return userMapper.toResponse(savedUser, tokenService.generateToken(user.getEmail()), tokenService.generateRefreshToken(user.getEmail()));
     }
 
